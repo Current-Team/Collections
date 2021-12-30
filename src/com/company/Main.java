@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+import model.MyArrayList;
+import model.Song;
+
 import java.util.Arrays;
 
 public class Main {

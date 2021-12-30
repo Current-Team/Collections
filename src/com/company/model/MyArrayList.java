@@ -1,6 +1,8 @@
+package model;
+
 import service.List;
 
-public class MyArrayList<T extends Comparable<T>> implements List {
+public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     private int size;
     private T[] objects;
@@ -14,6 +16,7 @@ public class MyArrayList<T extends Comparable<T>> implements List {
         this.size = 0;
     }
 
+    @Override
     public void add(T element) {
         if (size == objects.length) {
             expand();
@@ -22,19 +25,6 @@ public class MyArrayList<T extends Comparable<T>> implements List {
         size++;
     }
 
-    public void add(T element, int index) {
-        if (index > size){
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        if (size == objects.length) {
-          expand();
-        }
-        for (int i = size; i > index; i--){
-          this.objects[i] = this.objects[i-1];
-        }
-        this.objects[index] = element;
-        size++;
-    }
     private void expand() {
         T[] oldElements = this.objects;
         this.objects = (T[])new Comparable[oldElements.length + oldElements.length / 2];
@@ -44,27 +34,34 @@ public class MyArrayList<T extends Comparable<T>> implements List {
     }
 
     @Override
-    public boolean add(Object object) {
-        return false;
+    public void add(T element, int index) {
+        if (index > size){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        if (size == objects.length) {
+            expand();
+        }
+        for (int i = size; i > index; i--){
+            this.objects[i] = this.objects[i-1];
+        }
+        this.objects[index] = element;
+        size++;
     }
 
     @Override
-    public boolean add(int index, Object object) {
-        return false;
-    }
+    public T get(int index) {
 
-    @Override
-    public Object get(int index) {
         return null;
     }
 
     @Override
-    public Object get(Object object) {
-        return null;
+    public int getIndex(T object) {
+
+        return 0;
     }
 
     @Override
-    public void set(int index, Object object) {
+    public void set(int index, T object) {
 
     }
 

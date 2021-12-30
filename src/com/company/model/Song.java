@@ -1,3 +1,5 @@
+package model;
+
 public class Song implements Comparable<Song> {
     public int releaseYear;
     public String name;
@@ -14,7 +16,7 @@ public class Song implements Comparable<Song> {
 
     @Override
     public String toString() {
-        return "Song{" +
+        return "model.Song{" +
                 "releaseYear=" + releaseYear +
                 ", name='" + name +
                 '}';
