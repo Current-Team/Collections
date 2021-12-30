@@ -2,18 +2,24 @@ package model;
 
 import service.List;
 
-public class MyArrayList<T extends Comparable<T>> implements List<T> {
+import java.util.Arrays;
 
+public class MyArrayList<T extends Comparable<T>> implements List<T> {
     private int size;
     private T[] objects;
-
-    public T[] getObjects() {
-        return objects;
-    }
 
     public MyArrayList() {
         this.objects = (T[]) new Comparable[10];
         this.size = 0;
+    }
+
+    public MyArrayList(int startSize) {
+        this.objects = (T[]) new Comparable[startSize];
+        this.size = 0;
+    }
+
+    public T[] getObjects() {
+        return objects;
     }
 
     @Override
@@ -50,14 +56,22 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public T get(int index) {
-
-        return null;
+        return objects[index - 1];
     }
 
     @Override
-    public int getIndex(T object) {
+    public int getIndex(T object) throws RuntimeException {
+        for (int i = 0; i < objects.length; i++) {
+            if(objects[i] == object){
+                return i;
+            }
+        }
+        throw new RuntimeException("The object has not found");
+    }
 
-        return 0;
+    @Override
+    public void set(T object) {
+
     }
 
     @Override
@@ -72,7 +86,7 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
