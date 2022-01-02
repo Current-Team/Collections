@@ -3,20 +3,16 @@ package model;
 import service.List;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MyArrayList<T extends Comparable<T>> implements List<T> {
+    private final int INIT_SIZE = 16;
+    private final int CUT_RATE = 4;
+    private int sortValue;
     private int size;
-    private T[] objects;
+    private T[] objects = (T[]) new Comparable[INIT_SIZE];
 
-    public MyArrayList() {
-        this.objects = (T[]) new Comparable[10];
-        this.size = 0;
-    }
 
-    public MyArrayList(int startSize) {
-        this.objects = (T[]) new Comparable[startSize];
-        this.size = 0;
-    }
 
     public T[] getObjects() {
         return objects;
@@ -24,19 +20,11 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void add(T element) {
-        if (size == objects.length) {
-            expand();
+        if (size == objects.length - 1) {
+            expand(size * 2);
         }
         this.objects[size] = element;
         size++;
-    }
-
-    private void expand() {
-        T[] oldElements = this.objects;
-        this.objects = (T[])new Comparable[oldElements.length + oldElements.length / 2];
-        for (int i = 0; i < size; i++) {
-            this.objects[i] = oldElements[i];
-        }
     }
 
     @Override
@@ -44,14 +32,19 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
         if (index > size){
             throw new ArrayIndexOutOfBoundsException();
         }
-        if (size == objects.length) {
-            expand();
+        if (size == objects.length - 1) {
+            expand(size * 2);
         }
         for (int i = size; i > index; i--){
             this.objects[i] = this.objects[i-1];
         }
         this.objects[index] = element;
         size++;
+    }
+
+    private void expand(int newLength) {
+        T[] newArray = (T[])new Comparable[newLength];
+        System.arraycopy(newArray, 0, objects, 0, objects.length);
     }
 
     @Override
@@ -70,18 +63,13 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public void set(T object) {
-
-    }
-
-    @Override
-    public void set(int index, T object) {
-
-    }
-
-    @Override
     public void delete(int index) {
-
+        for (int i = index; i < size; i++)
+            objects[i] = objects[i + 1];
+        objects[size] = null;
+        size--;
+        if (objects.length > INIT_SIZE && size < objects.length / CUT_RATE)
+            expand(size / 2);
     }
 
     @Override
@@ -91,6 +79,10 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void sort() {
+
+    }
+
+    public static void sortArray(){
 
     }
 }
