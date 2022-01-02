@@ -1,7 +1,10 @@
 import model.MyArrayList;
 import model.Song;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +15,8 @@ public class Main {
         songs.add(song1);
         songs.add(song2);
         songs.add(song3, 1);
+        List<Object> songList = new ArrayList<>();
+
         System.out.println(Arrays.toString(songs.getObjects()));
     }
-
 }
