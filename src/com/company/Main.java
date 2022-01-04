@@ -1,22 +1,39 @@
 import model.MyArrayList;
 import model.Song;
+import service.List;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Song song1 = new Song(1988, "Smooth Criminal");
-        Song song2 = new Song(1981, "In The Air Tonight");
-        Song song3 = new Song(1967, "Nights in White Satin");
-        MyArrayList<Song> songs = new MyArrayList<Song>();
-        songs.add(song1);
-        songs.add(song2);
-        songs.add(song3, 1);
-        List<Object> songList = new ArrayList<>();
+        Song song1 = new Song(111, "Smooth Criminal");
+        Song song2 = new Song(222, "In The Air Tonight");
+        Song song3 = new Song(333, "Nights in White Satin");
+        Song song4 = new Song(444, "Nights ");
+        Song song5 = new Song(555, "Satin");
 
-        System.out.println(Arrays.toString(songs.getObjects()));
+        List<Song>myList = new MyArrayList<>();
+        myList.add(song1);
+        myList.add(song2);
+        myList.add(song3);
+        myList.add(song4);
+        myList.add(song5, 3);
+
+        for(int i = 0; i < myList.size(); i++){
+            System.out.println(myList.get(i));
+        }
+
+        System.out.println("======================");
+
+        myList.delete(3);
+
+        myList.set(song5, 1);
+
+        myList.sort();
+
+        for(int i = 0; i < myList.size(); i++){
+            System.out.println(myList.get(i));
+        }
+
+
     }
 }
