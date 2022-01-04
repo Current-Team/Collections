@@ -21,7 +21,7 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
     @Override
     public void add(T element) {
         if (size == objects.length - 1) {
-            expand(size * 2);
+            expand(size + size / 2);
         }
         this.objects[size] = element;
         size++;
@@ -33,13 +33,20 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
             throw new ArrayIndexOutOfBoundsException();
         }
         if (size == objects.length - 1) {
-            expand(size * 2);
+            expand(size + size / 2);
         }
         for (int i = size; i > index; i--){
             this.objects[i] = this.objects[i-1];
         }
         this.objects[index] = element;
         size++;
+    }
+
+    @Override
+    public void set(T element, int index) {
+        if(objects[index] != null){
+            objects[index] = element;
+        }else throw new RuntimeException("Element with this index has not found");
     }
 
     private void expand(int newLength) {
@@ -49,7 +56,7 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public T get(int index) {
-        return objects[index - 1];
+        return objects[index];
     }
 
     @Override
@@ -79,10 +86,16 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void sort() {
-
+        T temp = null;
+        for(int i=0; i < size; i++){
+            for(int j=1; j < size-i; j++){
+                if(objects[j-1].compareTo(objects[j]) > 0){
+                    temp = objects[j-1];
+                    objects[j-1] = objects[j];
+                    objects[j] = temp;
+                }
+            }
+        }
     }
 
-    public static void sortArray(){
-
-    }
 }
