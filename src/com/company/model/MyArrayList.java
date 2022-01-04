@@ -97,5 +97,4 @@ public class MyArrayList<T extends Comparable<T>> implements List<T> {
             }
         }
     }
-
 }
